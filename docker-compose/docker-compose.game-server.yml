@@ -20,4 +20,4 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: "Docker"
     links:
-      - "sudoku_game_server_db"
+      - sudoku_game_server_db

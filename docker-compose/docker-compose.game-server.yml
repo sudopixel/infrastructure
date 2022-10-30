@@ -1,0 +1,23 @@
+services:
+  sudoku_game_server_db:
+    image: postgres:12.5
+    container_name: sudoku-game-server-db
+    ports:
+      - "5439:5432"
+    volumes:
+      - ./volumes/game_server_db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "P@ssword123"
+      POSTGRES_DB: "sudoku_game_server"
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+  
+  sudoku_game_server:
+    image: adminsudopixel/sudoku_game_server
+    container_name: sudoku-game-server
+    ports:
+      - "7200:80"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Docker"
+    links:
+      - "sudoku_game_server_db"

@@ -17,7 +17,7 @@ services:
     links:
       - "gateway-postgresql"
       - "jhipster-registry"
-        
+      
   gateway-postgresql:
     image: postgres:14.5
     environment:
@@ -45,3 +45,26 @@ services:
       # - SPRING_CLOUD_CONFIG_SERVER_COMPOSITE_0_SEARCH_PATHS=central-config
     ports:
       - 8761:8761
+      
+  sudoku_game_server_db:
+    image: postgres:12.5
+    container_name: sudoku-game-server-db
+    ports:
+      - "5439:5432"
+    volumes:
+      - ./volumes/game_server_db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "P@ssword123"
+      POSTGRES_DB: "sudoku_game_server"
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+  
+  sudoku_game_server:
+    image: adminsudopixel/sudoku_game_server
+    container_name: sudoku-game-server
+    ports:
+      - "7200:80"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Docker"
+    links:
+      - sudoku_game_server_db      

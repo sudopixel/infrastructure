@@ -2,6 +2,7 @@ services:
   sudopixel-game-server_db:
     image: postgres:12.5
     container_name: sudopixel-game-server-db
+    hostname: sudopixel-game-server-db
     ports:
       - "5439:5432"
     volumes:

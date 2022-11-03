@@ -21,7 +21,8 @@ services:
       ASPNETCORE_ENVIRONMENT: "Docker"
       WAIT_HOSTS: sudopixel-game-server-db:5432
       GATEWAY_URL: "http://sudopixel-gateway:8080"
-      # todo: move to secrets  
+      # todo: move to secrets
+      # DB_CONNECTION_SECRET: "Docker_db_connection_secret"
       DB_CONNECTION_STRING: "Host=sudopixel-game-server-db;Database=sudopixel-game-server;Port=5432;Username=postgres;Password=P@ssword123;"
     links:
       - sudopixel-game-server_db

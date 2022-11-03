@@ -9,6 +9,12 @@ docker-compose -f ./docker-compose/docker-compose-java-stack.yml -f ./docker-com
 docker-compose -f ./docker-compose/docker-compose-java-stack.yml -f ./docker-compose/docker-compose.game-server.yml up -d
 ```
 
+or
+
+```
+.\start.bat
+```
+
 ## Java Stack
 
 Start:
@@ -34,6 +40,7 @@ docker-compose -f ./docker-compose/docker-compose.game-server.yml up -d sudopixe
 ```
 
 Stop all:
+
 ```
 docker-compose -f ./docker-compose/docker-compose.game-server.yml down
 ```

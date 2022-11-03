@@ -8,8 +8,8 @@ services:
       - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
       - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/eureka
       - SPRING_CLOUD_CONFIG_URI=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/config
-      - SPRING_R2DBC_URL=r2dbc:postgresql://gateway-postgresql:5432/gateway
-      - SPRING_LIQUIBASE_URL=jdbc:postgresql://gateway-postgresql:5432/gateway
+      - SPRING_R2DBC_URL=r2dbc:postgresql://gateway-postgresql:5433/gateway
+      - SPRING_LIQUIBASE_URL=jdbc:postgresql://gateway-postgresql:5433/gateway
       - JHIPSTER_SLEEP=5
       - JHIPSTER_REGISTRY_PASSWORD=admin
       - APPLICATION_SERVICES_GAME_SERVER_URI=http://host.docker.internal:7200
@@ -25,7 +25,12 @@ services:
       - POSTGRES_USER=gateway
       - POSTGRES_PASSWORD=
       - POSTGRES_HOST_AUTH_METHOD=trust
-
+    expose:
+      - "5433" # Publishes 5433 to other containers but NOT to host machine
+    ports:
+      - "5433:5433"
+    command: -p 5433
+      
   jhipster-registry:
     image: jhipster/jhipster-registry:v7.3.0
     volumes:
@@ -67,8 +72,9 @@ services:
       - "7200:80"
     environment:
       ASPNETCORE_ENVIRONMENT: "Docker"
-      GATEWAY_URL: "http://localhost:8080"
+      GATEWAY_URL: "http://host.docker.internal:8080"
       # todo: move to secrets  
       DB_CONNECTION_STRING: "Host=sudopixel-game-server-db;Database=sudopixel-game-server;Port=5432;Username=postgres;Password=P@ssword123;"
     links:
-      - sudopixel-game-server_db      
+      - sudopixel-game-server_db
+    restart: on-failure   

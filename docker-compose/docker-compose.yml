@@ -1,6 +1,7 @@
 services:
   gateway:
-    image: adminsudopixel/gateway:20221102_1
+    image: adminsudopixel/gateway:20221102_2
+    container_name: sudopixel-gateway
     environment:
       - _JAVA_OPTIONS=-Xmx512m -Xms256m
       - SPRING_PROFILES_ACTIVE=prod,api-docs
@@ -46,9 +47,9 @@ services:
     ports:
       - 8761:8761
       
-  sudoku_game_server_db:
+  sudopixel-game-server_db:
     image: postgres:12.5
-    container_name: sudoku-game-server-db
+    container_name: sudopixel-game-server-db
     ports:
       - "5439:5432"
     volumes:
@@ -56,15 +57,18 @@ services:
     environment:
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "P@ssword123"
-      POSTGRES_DB: "sudoku_game_server"
+      POSTGRES_DB: "sudopixel-game-server"
       PGDATA: "/var/lib/postgresql/data/pgdata"
   
-  sudoku_game_server:
-    image: adminsudopixel/sudoku_game_server
-    container_name: sudoku-game-server
+  sudopixel-game-server:
+    image: adminsudopixel/sudopixel-game-server
+    container_name: sudopixel-game-server
     ports:
       - "7200:80"
     environment:
       ASPNETCORE_ENVIRONMENT: "Docker"
+      GATEWAY_URL: "http://localhost:8080"
+      # todo: move to secrets  
+      DB_CONNECTION_STRING: "Host=sudopixel-game-server-db;Database=sudopixel-game-server;Port=5432;Username=postgres;Password=P@ssword123;"
     links:
-      - sudoku_game_server_db      
+      - sudopixel-game-server_db      

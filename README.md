@@ -1,5 +1,14 @@
 # infrastructure
 
+## Start all service
+
+Start:
+
+```
+docker-compose -f ./docker-compose/docker-compose-java-stack.yml -f ./docker-compose/docker-compose.game-server.yml pull
+docker-compose -f ./docker-compose/docker-compose-java-stack.yml -f ./docker-compose/docker-compose.game-server.yml up -d
+```
+
 ## Java Stack
 
 Start:
@@ -21,7 +30,7 @@ docker-compose -f ./docker-compose/docker-compose.game-server.yml up -d
 Start db only:
 
 ```
-docker-compose -f ./docker-compose/docker-compose.game-server.yml up -d sudoku_game_server_db
+docker-compose -f ./docker-compose/docker-compose.game-server.yml up -d sudopixel-game-server_db
 ```
 
 Stop all:

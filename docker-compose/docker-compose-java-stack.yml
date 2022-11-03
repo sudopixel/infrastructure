@@ -1,6 +1,7 @@
 services:
   gateway:
-    image: adminsudopixel/gateway:20221102_1
+    image: adminsudopixel/gateway:20221102_2
+    container_name: sudopixel-gateway
     environment:
       - _JAVA_OPTIONS=-Xmx512m -Xms256m
       - SPRING_PROFILES_ACTIVE=prod,api-docs

@@ -55,10 +55,11 @@ services:
   sudopixel-game-server_db:
     image: postgres:12.5
     container_name: sudopixel-game-server-db
+    hostname: sudopixel-game-server-db
     ports:
       - "5439:5432"
-    volumes:
-      - ./volumes/game_server_db:/var/lib/postgresql/data
+    # volumes:
+    #   - ./volumes/game_server_db:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "P@ssword123"
@@ -72,9 +73,11 @@ services:
       - "7200:80"
     environment:
       ASPNETCORE_ENVIRONMENT: "Docker"
+      WAIT_HOSTS: sudopixel-game-server-db:5432
       GATEWAY_URL: "http://host.docker.internal:8080"
-      # todo: move to secrets  
+      # todo: move to secrets
+      # DB_CONNECTION_SECRET: "Docker_db_connection_secret"
       DB_CONNECTION_STRING: "Host=sudopixel-game-server-db;Database=sudopixel-game-server;Port=5432;Username=postgres;Password=P@ssword123;"
     links:
       - sudopixel-game-server_db
-    restart: on-failure   
+    restart: on-failure      

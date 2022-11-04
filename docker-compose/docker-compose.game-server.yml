@@ -5,8 +5,8 @@ services:
     hostname: sudopixel-game-server-db
     ports:
       - "5439:5432"
-    volumes:
-      - ./volumes/game_server_db:/var/lib/postgresql/data
+    # volumes:
+    #   - ./volumes/game_server_db:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "P@ssword123"
